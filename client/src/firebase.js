@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: check if apiKey is correct or not
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
