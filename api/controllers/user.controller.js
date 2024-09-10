@@ -1,7 +1,8 @@
 import bcryptjs from 'bcryptjs';
 import User from '../model/user.model.js';
+import { errorHandler } from '../utils/error.js';
 
-export const test = (req,res) => {
+export const test = (req, res, next) => {
   res.json({
     "message": "Hey! my api route is working",
   });
@@ -31,6 +32,6 @@ export const updateUser =async (req, res) => {
     const {password, ...rest} = updateUser._doc;
     res.status(200).json(rest);
   } catch(error) {
-    next(error());
+    next(error);
   }
 }
