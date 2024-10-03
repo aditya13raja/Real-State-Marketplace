@@ -12,8 +12,10 @@ import {
   FaBath,
   FaChair,
   FaSquareParking,
-  FaShare
+  FaShare,
 } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import Contact from "../components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
@@ -21,7 +23,9 @@ export default function Listing() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [contact, setContact] = useState(false);
   const params = useParams();
+  const { currentUser } = useSelector((store) => store.user);
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -58,7 +62,7 @@ export default function Listing() {
         </p>
       )}
       {listing && !error && !loading && (
-        <div>
+        <div className="mb-10">
           <Swiper navigation>
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
@@ -72,9 +76,9 @@ export default function Listing() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
+          <div className="fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer">
             <FaShare
-              className='text-slate-500'
+              className="text-slate-500"
               onClick={() => {
                 navigator.clipboard.writeText(window.location.href);
                 setCopied(true);
@@ -85,7 +89,7 @@ export default function Listing() {
             />
           </div>
           {copied && (
-            <p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>
+            <p className="fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2">
               Link copied!
             </p>
           )}
@@ -93,7 +97,9 @@ export default function Listing() {
             <h1 className="text-3xl font-semibold py-10">
               {listing.name} - ${" "}
               <span>
-                {listing.offer ? listing.discountPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
+                {listing.offer
+                  ? listing.discountPrice.toLocaleString("en-US")
+                  : listing.regularPrice.toLocaleString("en-US")}
                 {listing.type === "rent" ? " / month" : ""}
               </span>
             </h1>
@@ -102,31 +108,31 @@ export default function Listing() {
               <span>{listing.address}</span>
             </p>
             <div className="flex gap-3">
-              <p className="p-1 my-5 text-center  w-full max-w-[10rem] bg-red-900 text-white font-semibold rounded-md">{listing.type === "rent" ? "For Rent" : "For Sale"}</p>
-              {listing.offer &&
-                <p className="p-1 my-5 text-center  w-full max-w-[10rem] bg-green-900 text-white font-semibold rounded-md">Save: $ {+listing.regularPrice - +listing.discountPrice}</p>
-              }
+              <p className="p-1 my-5 text-center  w-full max-w-[10rem] bg-red-900 text-white font-semibold rounded-md">
+                {listing.type === "rent" ? "For Rent" : "For Sale"}
+              </p>
+              {listing.offer && (
+                <p className="p-1 my-5 text-center  w-full max-w-[10rem] bg-green-900 text-white font-semibold rounded-md">
+                  Save: $ {+listing.regularPrice - +listing.discountPrice}
+                </p>
+              )}
             </div>
 
             <p className="text-l py-5">
               <span className="font-semibold">Description - </span>
-              <span>
-                {listing.description}  
-              </span>
+              <span>{listing.description}</span>
             </p>
-            <div className="flex gap-5 font-semibold flex-wrap mb-10">
+            <div className="flex gap-5 font-semibold flex-wrap my-5">
               <span className="flex gap-1 items-center text-green-900">
                 <FaBed className="inline" />
                 {listing.bedrooms} Beds
               </span>
               <span className="flex gap-1 items-center text-green-900">
-                <FaBath className="inline" /> {listing.bathrooms}{" "}
-                Baths
+                <FaBath className="inline" /> {listing.bathrooms} Baths
               </span>
               {listing.parking ? (
                 <span className="flex gap-1 items-center text-green-900">
-                  <FaSquareParking className="inline" /> Parking
-                  spot
+                  <FaSquareParking className="inline" /> Parking spot
                 </span>
               ) : (
                 ""
@@ -140,6 +146,19 @@ export default function Listing() {
                 <span className="text-green-900">Not furnished</span>
               )}
             </div>
+            {currentUser &&
+              listing?.userRef !== currentUser?._id &&
+              !contact && (
+                <button
+                  onClick={() => setContact(true)}
+                  className="bg-slate-600 text-white w-full p-3 rounded-lg uppercase hover:opacity-95"
+                >
+                  Contact Landlord
+                </button>
+              )}
+              {contact && (
+                <Contact listing={listing}/>
+              )}
           </div>
         </div>
       )}
