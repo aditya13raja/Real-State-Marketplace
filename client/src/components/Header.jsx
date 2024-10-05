@@ -14,7 +14,7 @@ const Header = () => {
         </div>
         <form className='bg-slate-200 flex items-center rounded-lg py-1 px-2'>
           <input
-            className="hidden sm:inline bg-transparent focus:outline-none"
+            className="sm:inline bg-transparent focus:outline-none"
             type="text" 
             placeholder="Search..." 
             />
