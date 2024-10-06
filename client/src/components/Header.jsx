@@ -10,12 +10,15 @@ const Header = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // sending search query to the url as parameters
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('searchTerm', searchTerm);
     const searchQuery = urlParams.toString();
     naviagte(`/search?${searchQuery}`);
   }
 
+  // getting search term from url
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
