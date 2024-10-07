@@ -30,10 +30,12 @@ const Header = () => {
   return (
     <header className="bg-slate-300 ">
       <div className="flex justify-between mx-4 sm:mx-8 xl:mx-auto max-w-6xl py-4 ">
-        <div className="text-xl font-bold">
-          <span className="text-slate-600">Delux</span>
-          <span className="text-slate-800">Estate</span>
-        </div>
+        <Link to="/">
+          <div className="text-xl font-bold">
+            <span className="text-slate-600">Delux</span>
+            <span className="text-slate-800">Estate</span>
+          </div>
+        </Link>
         <form onSubmit={handleSubmit} className='bg-slate-200 flex items-center rounded-lg py-1 px-2'>
           <input
             className="sm:inline bg-transparent focus:outline-none"
