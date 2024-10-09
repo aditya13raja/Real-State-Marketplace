@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 
 // Importing routes
 import userRoute from './routes/user.route.js';
@@ -21,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
   console.log(err);
 })
 
+const __dirname = path.resolve();
+
 app.listen(3000, () => {
   console.log("Server started at port https://localhost:3000");
 })
@@ -28,6 +31,12 @@ app.listen(3000, () => {
 app.use('/api/user', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/listing', listingRoute);
+
+app.use(express.static(path.join(__dirname, '/client/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
