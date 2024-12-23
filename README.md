@@ -121,22 +121,11 @@ Follow these steps to set up and run the project locally:
 
 - Middleware included for handling errors efficiently.
 - Firebase Storage powers image handling.
-- Secure authentication implemented with JWT.
+- Secure authentication implemented with JWT and Firebase Authentication.
 
 ---
 
 ## 🤝 Contributors
 
-- **[Aditya Raj](https://github.com/aditya-raj)**  
+- **[Aditya Raj](https://github.com/aditya13raja)**  
   *(Feel free to add your name and GitHub profile.)*
-
----
-
-## 📌 Notes
-
-- Placeholder descriptions in screenshots are not reflective of actual functionality.
-- Explore the code and documentation for additional details.
-
----
-
-This polished README format includes emojis for better visuals, well-structured sections, and a professional look for GitHub. Let me know if you'd like to tweak anything further! 🚀
